@@ -28,7 +28,7 @@ var questions = [{
     answerB: "emphasize",
     answerC: "strong",
     answerD: "italicize",
-    correctAnswer: "em",
+    correctAnswer: "a",
 }, 
 {
     question: "What does the '*' symbol do in CSS?",
@@ -36,7 +36,7 @@ var questions = [{
     answerB: "selects everything in the body",
     answerC: "selects everything on the page",
     answerD: "it doesn't do anything",
-    correctAnswer: "c",
+    correctAnswer: "b",
 },
 {
     question: "Arrays in JavaScript can be used to _________",
@@ -163,14 +163,16 @@ function startQuestions() {
 
     // go to next question
     var nextQuestion = function() {
-        questionIndex++;
+        qq + 1;
     };
 
     // check the answers
-    var checkAnswer = function() {
+    var checkAnswer = function(btn) {
         // correct is the correct answer part of the current question
-        var correct = questions[questionIndex].correctAnswer;
-        
+        var correct = qq.correctAnswer;
+        var answer = btn.id;
+        var incorrect = "";
+
         // if the button pressed is equal to the current question's answer, add points and go on to next question
         if (answer === correct) {
             answerResponse.textContent = "That's correct!";
@@ -178,7 +180,7 @@ function startQuestions() {
             console.log(score);
             nextQuestion();
             // if the button pressed is NOT equal to the current question's answer, subtract time and go on to next question
-        } else if (answer != correct) {
+        } else if (answer === incorrect) {
             answerResponse.textContent = "That is incorrect!"; 
             console.log(score)
             nextQuestion();   
@@ -191,10 +193,10 @@ function startQuestions() {
     };
 
     // if button is clicked, check the answer
-    buttonAnswerA.addEventListener('click', checkAnswer);
-    buttonAnswerB.addEventListener('click', checkAnswer);
-    buttonAnswerC.addEventListener('click', checkAnswer);
-    buttonAnswerD.addEventListener('click', checkAnswer);
+    buttonAnswerA.addEventListener('click', checkAnswer(this));
+    buttonAnswerB.addEventListener('click', checkAnswer(this));
+    buttonAnswerC.addEventListener('click', checkAnswer(this));
+    buttonAnswerD.addEventListener('click', checkAnswer(this));
     
 };
 
