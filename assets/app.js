@@ -18,7 +18,8 @@ var viewButton = document.getElementById('scores');
 // 
 var quizQuestion = document.getElementById('quizQuestion')
 var answerResponse = document.getElementById('inCorrect');
-
+var finalScore = document.getElementById('final-score');
+var pastScores = document.getElementById('pastScores');
 
 
 // questions
@@ -112,7 +113,7 @@ var questionIndex = 0;
 function reset() {
     score = 0;
     questionIndex = 0;
-
+    
     // clear local storage
 };
 
@@ -139,7 +140,7 @@ function startQuestions() {
     // start over with 0 score and timer
     var score = 0;
     var questionIndex = 0;
-    var timeLeft = 90;
+    var timeLeft = 3;
     var countdownBegin = setInterval(function() {
         if(timeLeft <=0) {
             clearInterval(countdownBegin);
@@ -158,19 +159,20 @@ function startQuestions() {
     buttonAnswerB.innerHTML = qq.answerB;
     buttonAnswerC.innerHTML = qq.answerC;
     buttonAnswerD.innerHTML = qq.answerD;
-    
+
 
 
     // go to next question
     var nextQuestion = function() {
-        qq + 1;
+        qq ++;
     };
 
     // check the answers
-    var checkAnswer = function(btn) {
+    var checkAnswer = function(event) {
         // correct is the correct answer part of the current question
+        event.preventDefault();
         var correct = qq.correctAnswer;
-        var answer = btn.id;
+        var answer = event.id;
         var incorrect = "";
 
         // if the button pressed is equal to the current question's answer, add points and go on to next question
@@ -209,7 +211,8 @@ function testEnds() {
     ending.style.display = "block";
     highScorePage.style.display = "none";
 
-
+    finalScore.textContent = score + " out of 10";
+    
     submitScore.addEventListener('click', HighScores);
 };
 
@@ -220,6 +223,8 @@ function HighScores() {
     questionsPage.style.display = "none";
     ending.style.display = "none";
     highScorePage.style.display = "block";
+
+    // pastScores.textContent = 
 
     returnButton.addEventListener('click', beginQuiz);
     clearButton.addEventListener('click', reset);

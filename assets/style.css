@@ -17,6 +17,7 @@ ul {
 }
 input {
     padding: 15px 100px;
+    font-size: 1.25;
 }
 header {
     font-size: 1.25vw;
@@ -41,8 +42,12 @@ main h2 {
 button:hover {
     background-color: blue;
 }
-footer {
-
+#final-score {
+    height: 200px;
+    font-size: 2vw;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 a, a:visited {
