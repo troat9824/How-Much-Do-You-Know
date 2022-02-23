@@ -13,12 +13,60 @@
         <h1>How Much Do You Know?</h1>
     </header>
 
+    <nav>
+        <div>
+            <!-- view high scores and timer-->
+            
+        </div>
+    </nav>
+
     <main>
-        
+        <!-- first page -->
+        <div class="first-page">
+            <h1>Coding Quiz Challenge</h1>
+            <p>How much do you really know about coding? Try to answer the following 10 questions within 90 seconds.<br>
+                Every incorrect answer will create a 10 second deduction of your remaining time.<br>
+                Are you ready to begin? </p>
+            <div id="start">
+                <button type="button" class="btn begin" id="start-button">Begin!</button>
+            </div>
+        </div>
+        <!-- questions -->
+        <div class="questions-page">
+            <h2 id="quizQuestion"></h2>
+            <!-- possible answers -->
+            <ul>
+                <li><button type="button" class="btn questinoBtn" id="a">A</button></li><br>
+                <li><button type="button" class="btn questinoBtn" id="b">B</button></li><br>
+                <li><button type="button" class="btn questinoBtn" id="c">C</button></li><br>
+                <li><button type="button" class="btn questinoBtn" id="d">D</button></li>
+            </ol>
+            <!-- right or wrong -->
+            <div class="inCorrect"></div>
+        </div>
+
+        <!-- finished quiz -->
+        <div class="last-page">
+            <h1>Congratulations! You completed the quiz! Here are your results.</h1>
+            <div class="final-score"></div>
+            <!-- enter initials -->
+            <form type="input">
+                <input class="initials" type="text" placeholder="Enter your initials"><br><br>
+                <button type="button" class="btn submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- high scores -->
+        <div class="high-scores">
+            <h1>Check out these high scores!</h1>
+
+        </div>
     </main>
 
     <footer>
-        
+        <h1>Thanks for visiting!</h1>
+        <h2>Made by Taylor Vaughn</h2>
+            <p><a href="https://github.com/troat9824" target="_blank">Check me out on Github!</a></p>
     </footer>
 
     <script src="./assets/app.js"></script>

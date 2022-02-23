@@ -1,0 +1,29 @@
+* {
+    text-align: center;
+}
+button {
+    padding: 15px 40px;
+    font-size: 1.5vw;
+    color:antiquewhite;
+    background-color: blueviolet;
+
+}
+ul {
+    list-style-type: none;
+}
+.submit {
+    padding: 10px 30px;
+}
+input {
+    padding: 15px 100px;
+}
+header {
+    font-size: 2vw;
+}
+
+main {
+    height: 600px;
+    align-items: center;
+    display:flex;
+    justify-content: center;
+}
