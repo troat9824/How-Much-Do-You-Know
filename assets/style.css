@@ -1,5 +1,6 @@
 * {
     text-align: center;
+    font-family: OCR A Std, monospace, serif;
 }
 button {
     padding: 15px 40px;
@@ -18,7 +19,7 @@ input {
     padding: 15px 100px;
 }
 header {
-    font-size: 2vw;
+    font-size: 1.25vw;
 }
 
 main {
@@ -26,4 +27,29 @@ main {
     align-items: center;
     display:flex;
     justify-content: center;
+}
+main h1 {
+    font-size: 2.25vw;
+}
+main p {
+    font-size: 1.5vw;
+}
+main h2 {
+    font-size: 1.75vw;
+}
+
+button:hover {
+    background-color: blue;
+}
+footer {
+
+}
+
+a, a:visited {
+    font-size: 1vw;
+    text-decoration: none;
+    color: blueviolet
+}
+a:hover {
+    color: blue;
 }

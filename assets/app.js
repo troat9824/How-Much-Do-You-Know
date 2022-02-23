@@ -6,6 +6,13 @@ var highScorePage = document.querySelector('.high-scores');
 
 // buttons
 var beginButton = document.getElementById('start-button');
+var buttonAnswerA = document.getElementById('a');
+var buttonAnswerB = document.getElementById('b');
+var buttonAnswerC = document.getElementById('c');
+var buttonAnswerD = document.getElementById('d');
+
+// score
+const score = "";
 
 
 
@@ -26,10 +33,10 @@ function nextQuestion() {
     questionsPage.style.display = "block";
     ending.style.display = "none";
     highScorePage.style.display = "none";
-    // start over with 0 score
+    // start over with 0 score and timer
     const score = 0;
 
-    
+    // start questions
 };
 
 
@@ -67,12 +74,12 @@ const questions = [{
     correctAnswer: "c",
 },
 {
-    question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
-    correctAnswer: "",
+    question: "Arrays in JavaScript can be used to _________",
+    answerA: "numbers and strings",
+    answerB: "other arrays",
+    answerC: "booleans",
+    answerD: "all of the above",
+    correctAnswer: "d",
 },
 {
     question: "",
