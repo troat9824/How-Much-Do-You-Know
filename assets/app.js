@@ -17,18 +17,18 @@ var viewButton = document.getElementById('scores');
 
 // 
 var quizQuestion = document.getElementById('quizQuestion')
-
+var answerResponse = document.getElementById('inCorrect');
 
 
 
 // questions
-const questions = [{
+var questions = [{
     question: "Which of these tags will emphasize text?",
-    answerA: "<em>",
-    answerB: "<emphasize>",
-    answerC: "<strong>",
-    answerD: "<italicize>",
-    correctAnswer: "a",
+    answerA: "em",
+    answerB: "emphasize",
+    answerC: "strong",
+    answerD: "italicize",
+    correctAnswer: "em",
 }, 
 {
     question: "What does the '*' symbol do in CSS?",
@@ -105,9 +105,9 @@ const questions = [{
 ];
 
 // score
-const score = "";
-const questionIndex = 0;
-const finalQuestion = questions.length;
+var score = 0;
+var questionIndex = 0;
+
 
 function reset() {
     score = 0;
@@ -127,6 +127,7 @@ function beginQuiz() {
 };
 
 
+
 // begins the test, showing only 'questions' class, hiding all others
 function startQuestions() {
     beginning.style.display = "none";
@@ -136,8 +137,8 @@ function startQuestions() {
     
     
     // start over with 0 score and timer
-    const score = 0;
-    const questionIndex = 0;
+    var score = 0;
+    var questionIndex = 0;
     var timeLeft = 90;
     var countdownBegin = setInterval(function() {
         if(timeLeft <=0) {
@@ -158,14 +159,45 @@ function startQuestions() {
     buttonAnswerC.innerHTML = qq.answerC;
     buttonAnswerD.innerHTML = qq.answerD;
     
-    // button.addEventListener('click', checkAnswer);
-
-    // answer 
 
 
+    // go to next question
+    var nextQuestion = function() {
+        questionIndex++;
+    };
 
-    // once finished with all of questions, function testEnds
+    // check the answers
+    var checkAnswer = function() {
+        // correct is the correct answer part of the current question
+        var correct = questions[questionIndex].correctAnswer;
+        
+        // if the button pressed is equal to the current question's answer, add points and go on to next question
+        if (answer === correct) {
+            answerResponse.textContent = "That's correct!";
+            score ++;
+            console.log(score);
+            nextQuestion();
+            // if the button pressed is NOT equal to the current question's answer, subtract time and go on to next question
+        } else if (answer != correct) {
+            answerResponse.textContent = "That is incorrect!"; 
+            console.log(score)
+            nextQuestion();   
+        };
+        
+           // once finished with all of questions, function testEnds
+        if (questions.length === questionIndex+1) {
+            testEnds();
+        };
+    };
+
+    // if button is clicked, check the answer
+    buttonAnswerA.addEventListener('click', checkAnswer);
+    buttonAnswerB.addEventListener('click', checkAnswer);
+    buttonAnswerC.addEventListener('click', checkAnswer);
+    buttonAnswerD.addEventListener('click', checkAnswer);
+    
 };
+
 
 
 // test ends, showing only 'last-page' class, hiding all others
@@ -197,4 +229,5 @@ function HighScores() {
 // start on first page
 beginQuiz();
 
+// if view high scores is clicked, go to that page
 viewButton.addEventListener('click', HighScores);
