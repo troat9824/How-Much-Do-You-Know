@@ -16,7 +16,8 @@
     <nav>
         <div>
             <!-- view high scores and timer-->
-            
+            <a href="#high-scores" id="scores">View High Scores</a>   
+            <a id="timer">Timer:</a>
         </div>
     </nav>
 
@@ -26,7 +27,7 @@
             <h1>Coding Quiz Challenge</h1>
             <h2>How much do you really know about coding?</h2>
             <p>Try to answer the following 10 questions within 90 seconds.<br>
-                Every incorrect answer will create a 10 second deduction of your remaining time.<br>
+                Every incorrect answer will create a 10 second deduction of your remaining time.<br><br>
                 Are you ready to begin? </p>
             <div id="start">
                 <button type="button" class="btn begin" id="start-button">Begin!</button>
@@ -37,10 +38,10 @@
             <h1 id="quizQuestion"></h1>
             <!-- possible answers -->
             <ul>
-                <li><button type="button" class="btn questinoBtn" id="a">A</button></li><br>
-                <li><button type="button" class="btn questinoBtn" id="b">B</button></li><br>
-                <li><button type="button" class="btn questinoBtn" id="c">C</button></li><br>
-                <li><button type="button" class="btn questinoBtn" id="d">D</button></li>
+                <li><button type="button" class="btn questinoBtn" id="a"></button></li><br>
+                <li><button type="button" class="btn questinoBtn" id="b"></button></li><br>
+                <li><button type="button" class="btn questinoBtn" id="c"></button></li><br>
+                <li><button type="button" class="btn questinoBtn" id="d"></button></li>
             </ol>
             <!-- right or wrong -->
             <div class="inCorrect"></div>
@@ -53,14 +54,18 @@
             <!-- enter initials -->
             <form type="input">
                 <input class="initials" type="text" placeholder="Enter your initials"><br><br>
-                <button type="button" class="btn submit">Submit</button>
+                <button type="button" class="btn submit" id="submit">Submit</button>
             </form>
         </div>
 
         <!-- high scores -->
         <div class="high-scores">
             <h1>Check out these high scores!</h1>
-
+            <p>
+        
+            </p>
+            <button type="button" class="btn return" id="return">Start Over</button>
+            <button type="button" class="btn clear" id="clear">Clear High Scores</button>
         </div>
     </main>
 

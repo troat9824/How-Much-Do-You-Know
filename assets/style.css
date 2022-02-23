@@ -53,3 +53,9 @@ a, a:visited {
 a:hover {
     color: blue;
 }
+nav div {
+    justify-content: space-around;
+    display: flex;
+    font-size: 1vw;
+    color:blueviolet;
+}
