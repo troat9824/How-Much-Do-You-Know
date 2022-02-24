@@ -139,7 +139,7 @@ function startQuestions() {
     // start over with 0 score and timer
     var score = 0;
     var questionIndex = 0;
-    var timeLeft = 3;
+    var timeLeft = 10;
     var countdownBegin = setInterval(function() {
         if(timeLeft <=0) {
             clearInterval(countdownBegin);
@@ -161,46 +161,52 @@ function startQuestions() {
 
 
 
-    // go to next question
-    var nextQuestion = function(btn) {
-        qq++;
-    };
+    // // go to next question
+    // var nextQuestion = function(btn) {
+    //     qq++;
+    // };
 
     // check the answers
-    var checkAnswer = function(btn) {
+    var checkAnswer = function(event) {
         // correct is the correct answer part of the current question
-
+        
+        console.log(event.target);
         var correct = qq.correctAnswer;
-        var answer = btn.id;
-        var incorrect = "";
+        var answer = event.id;
+        // var incorrect = "";
         
-        // once finished with all of questions, function testEnds
-        if (questions.length === questionIndex+1) {
-        testEnds();        
-        };
-        
-        // if the button pressed is equal to the current question's answer, add points and go on to next question
-        if (answer === correct) {
-            answerResponse.textContent = "That's correct!";
-            score ++;
-            console.log(score);
-            nextQuestion();
+        for (i = 0; i < qq.length; i++) {
+
+            // if button is clicked, check the answer
+            buttonAnswerA.addEventListener('click', checkAnswer(this));
+            buttonAnswerB.addEventListener('click', checkAnswer(this));
+            buttonAnswerC.addEventListener('click', checkAnswer(this));
+            buttonAnswerD.addEventListener('click', checkAnswer(this));
+
+            // once finished with all of questions, function testEnds
+            if (questions.length === questionIndex+1) {
+                testEnds();        
+            };
+            
+            // if the button pressed is equal to the current question's answer, add points and go on to next question
+            if (answer === correct) {
+                answerResponse.textContent = "That's correct!";
+                score ++;
+                console.log(score);
+                checkAnswer();
             // if the button pressed is NOT equal to the current question's answer, subtract time and go on to next question
-        } else if (answer != correct) {
-            answerResponse.textContent = "That is incorrect!"; 
-            console.log(score)
-            nextQuestion();   
+            } else if (answer != correct) {
+                answerResponse.textContent = "That is incorrect!"; 
+                console.log(score)
+                checkAnswer();   
+            };
         };
         
 
     };
 
 
-    // if button is clicked, check the answer
-    buttonAnswerA.addEventListener('click', checkAnswer(this));
-    buttonAnswerB.addEventListener('click', checkAnswer(this));
-    buttonAnswerC.addEventListener('click', checkAnswer(this));
-    buttonAnswerD.addEventListener('click', checkAnswer(this));
+
     
 };
 
