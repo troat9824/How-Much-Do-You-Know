@@ -29,7 +29,7 @@ var questions = [{
     answerB: "B. emphasize",
     answerC: "C. strong",
     answerD: "D. italicize",
-    correctAnswer: "a",
+    correctAnswer: buttonAnswerA,
 }, 
 {
     question: "What does the '*' symbol do in CSS?",
@@ -37,7 +37,7 @@ var questions = [{
     answerB: "B. selects everything in the body",
     answerC: "C. selects everything on the page",
     answerD: "D. it doesn't do anything",
-    correctAnswer: "b",
+    correctAnswer: buttonAnswerB,
 },
 {
     question: "Arrays in JavaScript can be used to _________",
@@ -45,7 +45,7 @@ var questions = [{
     answerB: "B. other arrays",
     answerC: "C. booleans",
     answerD: "D. all of the above",
-    correctAnswer: "d",
+    correctAnswer: buttonAnswerD,
 },
 {
     question: "Commonly used data types do NOT include:",
@@ -53,7 +53,7 @@ var questions = [{
     answerB: "B. strings",
     answerC: "C. alerts",
     answerD: "D. numbers",
-    correctAnswer: "c",
+    correctAnswer: buttonAnswerC,
 },
 {
     question: "",
@@ -107,6 +107,7 @@ var questions = [{
 // score
 var score = 0;
 var questionIndex = 0;
+var qq = questions[questionIndex];
 
 
 function reset() {
@@ -150,65 +151,64 @@ function startQuestions() {
         timeLeft -= 1;
     }, 1000);
     // start questions, starts at 0 index
-    var qq = questions[questionIndex];
-
+    showQuestions();
+};
+function showQuestions() {
     //  puts questions and answers on h1 and buttons
     quizQuestion.innerHTML = qq.question;
     buttonAnswerA.innerHTML = qq.answerA;
     buttonAnswerB.innerHTML = qq.answerB;
     buttonAnswerC.innerHTML = qq.answerC;
     buttonAnswerD.innerHTML = qq.answerD;
+};
 
 
 
-    // // go to next question
-    // var nextQuestion = function(btn) {
-    //     qq++;
-    // };
+        // if button is clicked, check the answer
+buttonAnswerA.addEventListener('click', checkAnswer(this));
+buttonAnswerB.addEventListener('click', checkAnswer(this));
+buttonAnswerC.addEventListener('click', checkAnswer(this));
+buttonAnswerD.addEventListener('click', checkAnswer(this));
 
-    // check the answers
-    var checkAnswer = function(event) {
-        // correct is the correct answer part of the current question
-        
-        console.log(event.target);
-        var correct = qq.correctAnswer;
-        var answer = event.id;
-        // var incorrect = "";
-        
-        for (i = 0; i < qq.length; i++) {
+// // go to next question
+// var nextQuestion = function(btn) {
+//     qq++;
+// };
 
-            // if button is clicked, check the answer
-            buttonAnswerA.addEventListener('click', checkAnswer(this));
-            buttonAnswerB.addEventListener('click', checkAnswer(this));
-            buttonAnswerC.addEventListener('click', checkAnswer(this));
-            buttonAnswerD.addEventListener('click', checkAnswer(this));
+// check the answers
+function checkAnswer(btn) {
+    // correct is the correct answer part of the current question
+console.log(btn);
+    var correct = qq.correctAnswer;
+    var answer = btn.id;
+    // var incorrect = "";
+    
+    for (i = 0; i < qq.length; i++) {
 
-            // once finished with all of questions, function testEnds
-            if (questions.length === questionIndex+1) {
-                testEnds();        
+        // once finished with all of questions, function testEnds
+        if (questions.length === questionIndex+1) {
+            testEnds();        
             };
-            
+        
             // if the button pressed is equal to the current question's answer, add points and go on to next question
             if (answer === correct) {
                 answerResponse.textContent = "That's correct!";
                 score ++;
                 console.log(score);
-                checkAnswer();
-            // if the button pressed is NOT equal to the current question's answer, subtract time and go on to next question
+                showQuestions();
+                // if the button pressed is NOT equal to the current question's answer, subtract time and go on to next question
             } else if (answer != correct) {
                 answerResponse.textContent = "That is incorrect!"; 
                 console.log(score)
-                checkAnswer();   
+                showQuestions();   
             };
-        };
-        
-
     };
-
-
-
     
+
 };
+
+
+
 
 
 
