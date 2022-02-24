@@ -29,8 +29,8 @@
             <p>Try to answer the following 10 questions within 90 seconds.<br>
                 Every incorrect answer will create a 10 second deduction of your remaining time.<br><br>
                 Are you ready to begin? </p>
-            <div id="start">
-                <button type="button" class="btn begin" id="start-button">Begin!</button>
+            <div id="start-page">
+                <button type="button" class="btn begin" id="start">Begin!</button>
             </div>
         </div>
         <!-- questions -->
@@ -38,10 +38,10 @@
             <h1 id="quizQuestion"></h1>
             <!-- possible answers -->
             <ul>
-                <li><button type="button" class="btn questionBtn" id="a"></button></li><br>
-                <li><button type="button" class="btn questionBtn" id="b"></button></li><br>
-                <li><button type="button" class="btn questionBtn" id="c"></button></li><br>
-                <li><button type="button" class="btn questionBtn" id="d"></button></li>
+                <li><button type="button" class="btn questionBtn" id="a-btn"></button></li><br>
+                <li><button type="button" class="btn questionBtn" id="b-btn"></button></li><br>
+                <li><button type="button" class="btn questionBtn" id="c-btn"></button></li><br>
+                <li><button type="button" class="btn questionBtn" id="d-btn"></button></li>
             </ol>
             <!-- right or wrong -->
             <div id="inCorrect"></div>
@@ -53,7 +53,7 @@
             <div id="final-score"></div>
             <!-- enter initials -->
             <form type="input">
-                <input class="initials" type="text" placeholder="Enter your initials"><br><br>
+                <input id="initials" type="text" placeholder="Enter your initials"><br><br>
                 <button type="button" class="btn submit" id="submit">Submit</button>
             </form>
         </div>

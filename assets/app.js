@@ -5,11 +5,11 @@ var ending = document.querySelector('.last-page');
 var highScorePage = document.querySelector('.high-scores');
 
 // buttons
-var beginButton = document.getElementById('start-button');
-var buttonAnswerA = document.getElementById('a');
-var buttonAnswerB = document.getElementById('b');
-var buttonAnswerC = document.getElementById('c');
-var buttonAnswerD = document.getElementById('d');
+var beginButton = document.getElementById('start');
+var buttonAnswerA = document.getElementById('a-btn');
+var buttonAnswerB = document.getElementById('b-btn');
+var buttonAnswerC = document.getElementById('c-btn');
+var buttonAnswerD = document.getElementById('d-btn');
 var submitScore = document.getElementById('submit');
 var returnButton = document.getElementById('return');
 var clearButton = document.getElementById('clear');
@@ -20,90 +20,89 @@ var quizQuestion = document.getElementById('quizQuestion')
 var answerResponse = document.getElementById('inCorrect');
 var finalScore = document.getElementById('final-score');
 var pastScores = document.getElementById('pastScores');
-
+var initials = document.getElementById('initials').value;
 
 // questions
 var questions = [{
     question: "Which of these tags will emphasize text?",
-    answerA: "em",
-    answerB: "emphasize",
-    answerC: "strong",
-    answerD: "italicize",
+    answerA: "A. em",
+    answerB: "B. emphasize",
+    answerC: "C. strong",
+    answerD: "D. italicize",
     correctAnswer: "a",
 }, 
 {
     question: "What does the '*' symbol do in CSS?",
-    answerA: "selects all bullet points",
-    answerB: "selects everything in the body",
-    answerC: "selects everything on the page",
-    answerD: "it doesn't do anything",
+    answerA: "A. selects all bullet points",
+    answerB: "B. selects everything in the body",
+    answerC: "C. selects everything on the page",
+    answerD: "D. it doesn't do anything",
     correctAnswer: "b",
 },
 {
     question: "Arrays in JavaScript can be used to _________",
-    answerA: "numbers and strings",
-    answerB: "other arrays",
-    answerC: "booleans",
-    answerD: "all of the above",
+    answerA: "A. numbers and strings",
+    answerB: "B. other arrays",
+    answerC: "C. booleans",
+    answerD: "D. all of the above",
     correctAnswer: "d",
 },
 {
+    question: "Commonly used data types do NOT include:",
+    answerA: "A. booleans",
+    answerB: "B. strings",
+    answerC: "C. alerts",
+    answerD: "D. numbers",
+    correctAnswer: "c",
+},
+{
     question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
+    answerA: "A. ",
+    answerB: "B. ",
+    answerC: "C. ",
+    answerD: "D. ",
     correctAnswer: "",
 },
 {
     question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
+    answerA: "A. ",
+    answerB: "B. ",
+    answerC: "C. ",
+    answerD: "D. ",
     correctAnswer: "",
 },
 {
     question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
+    answerA: "A. ",
+    answerB: "B. ",
+    answerC: "C. ",
+    answerD: "D. ",
     correctAnswer: "",
 },
 {
     question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
+    answerA: "A. ",
+    answerB: "B. ",
+    answerC: "C. ",
+    answerD: "D. ",
     correctAnswer: "",
 },
 {
     question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
+    answerA: "A. ",
+    answerB: "B. ",
+    answerC: "C. ",
+    answerD: "D. ",
     correctAnswer: "",
 },
 {
     question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
+    answerA: "A. ",
+    answerB: "B. ",
+    answerC: "C. ",
+    answerD: "D. ",
     correctAnswer: "",
-},
-{
-    question: "",
-    answerA: "",
-    answerB: "",
-    answerC: "",
-    answerD: "",
-    correctAnswer: "",
-},
-];
+}];
 
 // score
 var score = 0;
@@ -163,18 +162,23 @@ function startQuestions() {
 
 
     // go to next question
-    var nextQuestion = function() {
-        qq ++;
+    var nextQuestion = function(btn) {
+        qq++;
     };
 
     // check the answers
-    var checkAnswer = function(event) {
+    var checkAnswer = function(btn) {
         // correct is the correct answer part of the current question
-        event.preventDefault();
-        var correct = qq.correctAnswer;
-        var answer = event.id;
-        var incorrect = "";
 
+        var correct = qq.correctAnswer;
+        var answer = btn.id;
+        var incorrect = "";
+        
+        // once finished with all of questions, function testEnds
+        if (questions.length === questionIndex+1) {
+        testEnds();        
+        };
+        
         // if the button pressed is equal to the current question's answer, add points and go on to next question
         if (answer === correct) {
             answerResponse.textContent = "That's correct!";
@@ -182,17 +186,15 @@ function startQuestions() {
             console.log(score);
             nextQuestion();
             // if the button pressed is NOT equal to the current question's answer, subtract time and go on to next question
-        } else if (answer === incorrect) {
+        } else if (answer != correct) {
             answerResponse.textContent = "That is incorrect!"; 
             console.log(score)
             nextQuestion();   
         };
         
-           // once finished with all of questions, function testEnds
-        if (questions.length === questionIndex+1) {
-            testEnds();
-        };
+
     };
+
 
     // if button is clicked, check the answer
     buttonAnswerA.addEventListener('click', checkAnswer(this));
@@ -212,6 +214,8 @@ function testEnds() {
     highScorePage.style.display = "none";
 
     finalScore.textContent = score + " out of 10";
+    
+    // save user input initials to local storage
     
     submitScore.addEventListener('click', HighScores);
 };
