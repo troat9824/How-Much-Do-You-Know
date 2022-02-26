@@ -29,7 +29,7 @@ var questions = [{
     answerB: "B. emphasize",
     answerC: "C. strong",
     answerD: "D. italicize",
-    correctAnswer: buttonAnswerA,
+    correctAnswer: 'a-btn',
 }, 
 {
     question: "What does the '*' symbol do in CSS?",
@@ -56,52 +56,52 @@ var questions = [{
     correctAnswer: buttonAnswerC,
 },
 {
-    question: "",
-    answerA: "A. ",
-    answerB: "B. ",
-    answerC: "C. ",
-    answerD: "D. ",
-    correctAnswer: "",
+    question: "What does CSS Stand for?",
+    answerA: "A. Critical Style Sheets",
+    answerB: "B. Cascading Style Sheets",
+    answerC: "C. Critical System Style",
+    answerD: "D. Cascading System Style",
+    correctAnswer: buttonAnswerB,
 },
 {
-    question: "",
-    answerA: "A. ",
-    answerB: "B. ",
-    answerC: "C. ",
-    answerD: "D. ",
-    correctAnswer: "",
+    question: "What does var stand for in JavaScript?",
+    answerA: "A. variance",
+    answerB: "B. variation",
+    answerC: "C. variable",
+    answerD: "D. varietal",
+    correctAnswer: buttonAnswerC,
 },
 {
-    question: "",
-    answerA: "A. ",
-    answerB: "B. ",
-    answerC: "C. ",
-    answerD: "D. ",
-    correctAnswer: "",
+    question: "How can you search a webpage in Javascript?",
+    answerA: "A. document.querySelector",
+    answerB: "B. query.documentSelector",
+    answerC: "C. select.documentQuery",
+    answerD: "D. find.documentSelection",
+    correctAnswer: buttonAnswerB,
 },
 {
-    question: "",
-    answerA: "A. ",
-    answerB: "B. ",
-    answerC: "C. ",
-    answerD: "D. ",
-    correctAnswer: "",
+    question: "A very useful tool used for developing and debugging for printing content to the debugger is:",
+    answerA: "A. Javascript",
+    answerB: "B. terminal/bash",
+    answerC: "C. for loops",
+    answerD: "D. console.log",
+    correctAnswer: buttonAnswerD,
 },
 {
-    question: "",
-    answerA: "A. ",
-    answerB: "B. ",
-    answerC: "C. ",
-    answerD: "D. ",
-    correctAnswer: "",
+    question: "String values must be enclosed within _________ when being assigned to variables",
+    answerA: "A. commas",
+    answerB: "B. curly brackets",
+    answerC: "C. quotes",
+    answerD: "D. parenthesis",
+    correctAnswer: buttonAnswerC,
 },
 {
-    question: "",
-    answerA: "A. ",
-    answerB: "B. ",
-    answerC: "C. ",
-    answerD: "D. ",
-    correctAnswer: "",
+    question: "The condition in an if/else statement is enclosed within ________",
+    answerA: "A. parenthesis",
+    answerB: "B. quotes",
+    answerC: "C. curly brackets",
+    answerD: "D. commas",
+    correctAnswer: buttonAnswerA,
 }];
 
 // score
@@ -160,50 +160,49 @@ function showQuestions() {
     buttonAnswerB.innerHTML = qq.answerB;
     buttonAnswerC.innerHTML = qq.answerC;
     buttonAnswerD.innerHTML = qq.answerD;
+
+
 };
 
-
+buttonAnswerA.addEventListener('click', function(event) {checkAnswer(event)});
+buttonAnswerB.addEventListener('click', function(event) {checkAnswer(event)});
+buttonAnswerC.addEventListener('click', function(event) {checkAnswer(event)});
+buttonAnswerD.addEventListener('click', function(event) {checkAnswer(event)});
 
         // if button is clicked, check the answer
-buttonAnswerA.addEventListener('click', checkAnswer(this));
-buttonAnswerB.addEventListener('click', checkAnswer(this));
-buttonAnswerC.addEventListener('click', checkAnswer(this));
-buttonAnswerD.addEventListener('click', checkAnswer(this));
 
-// // go to next question
-// var nextQuestion = function(btn) {
-//     qq++;
-// };
+
+
 
 // check the answers
-function checkAnswer(btn) {
+function checkAnswer(event) {
+
     // correct is the correct answer part of the current question
-console.log(btn);
-    var correct = qq.correctAnswer;
-    var answer = btn.id;
-    // var incorrect = "";
+console.log(event.currentTarget.id);
+    var correct = questions[questionIndex].correctAnswer;
+    var answer = event.currentTarget.id;
     
     for (i = 0; i < qq.length; i++) {
 
-        // once finished with all of questions, function testEnds
-        if (questions.length === questionIndex+1) {
-            testEnds();        
+        if (answer === correct) {
+        answerResponse.textContent = "That's Correct!"; // If correct, say correct, add points and console log score
+        score++;
+        console.log(score)
+        showQuestions();
+        } else if (answer != correct) {
+        answerResponse.textContent = "That's Incorrect!"; // If wrong, say wrong & deduct 10 seconds
+            secondsLeft -= 10
+            if (secondsLeft < 0) {
+                secondsLeft = 0;
             };
-        
-            // if the button pressed is equal to the current question's answer, add points and go on to next question
-            if (answer === correct) {
-                answerResponse.textContent = "That's correct!";
-                score ++;
-                console.log(score);
-                showQuestions();
-                // if the button pressed is NOT equal to the current question's answer, subtract time and go on to next question
-            } else if (answer != correct) {
-                answerResponse.textContent = "That is incorrect!"; 
-                console.log(score)
-                showQuestions();   
-            };
+            showQuestions();
+        };
+
+    };    
+    if (qq.length === questionIndex+1) {
+        testEnds(); // If it has gone through all questions, show final score
     };
-    
+
 
 };
 
@@ -234,7 +233,7 @@ function HighScores() {
     ending.style.display = "none";
     highScorePage.style.display = "block";
 
-    // pastScores.textContent = 
+    
 
     returnButton.addEventListener('click', beginQuiz);
     clearButton.addEventListener('click', reset);
