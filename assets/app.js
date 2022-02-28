@@ -20,7 +20,7 @@ var quizQuestion = document.getElementById('quizQuestion')
 var answerResponse = document.getElementById('inCorrect');
 var finalScore = document.getElementById('final-score');
 var pastScores = document.getElementById('pastScores');
-var initials = document.getElementById('initials').value;
+
 
 // questions
 var questions = [{
@@ -37,7 +37,7 @@ var questions = [{
     answerB: "B. selects everything in the body",
     answerC: "C. selects everything on the page",
     answerD: "D. it doesn't do anything",
-    correctAnswer: buttonAnswerB,
+    correctAnswer: 'b-btn',
 },
 {
     question: "Arrays in JavaScript can be used to _________",
@@ -45,7 +45,7 @@ var questions = [{
     answerB: "B. other arrays",
     answerC: "C. booleans",
     answerD: "D. all of the above",
-    correctAnswer: buttonAnswerD,
+    correctAnswer: 'd-btn',
 },
 {
     question: "Commonly used data types do NOT include:",
@@ -69,7 +69,7 @@ var questions = [{
     answerB: "B. variation",
     answerC: "C. variable",
     answerD: "D. varietal",
-    correctAnswer: buttonAnswerC,
+    correctAnswer: 'c-btn',
 },
 {
     question: "How can you search a webpage in Javascript?",
@@ -77,7 +77,7 @@ var questions = [{
     answerB: "B. query.documentSelector",
     answerC: "C. select.documentQuery",
     answerD: "D. find.documentSelection",
-    correctAnswer: buttonAnswerB,
+    correctAnswer: 'b-btn',
 },
 {
     question: "A very useful tool used for developing and debugging for printing content to the debugger is:",
@@ -85,7 +85,7 @@ var questions = [{
     answerB: "B. terminal/bash",
     answerC: "C. for loops",
     answerD: "D. console.log",
-    correctAnswer: buttonAnswerD,
+    correctAnswer: 'd-btn',
 },
 {
     question: "String values must be enclosed within _________ when being assigned to variables",
@@ -93,7 +93,7 @@ var questions = [{
     answerB: "B. curly brackets",
     answerC: "C. quotes",
     answerD: "D. parenthesis",
-    correctAnswer: buttonAnswerC,
+    correctAnswer: 'c-btn',
 },
 {
     question: "The condition in an if/else statement is enclosed within ________",
@@ -101,7 +101,7 @@ var questions = [{
     answerB: "B. quotes",
     answerC: "C. curly brackets",
     answerD: "D. commas",
-    correctAnswer: buttonAnswerA,
+    correctAnswer: 'a-btn',
 }];
 
 // score
@@ -113,8 +113,9 @@ var qq = questions[questionIndex];
 function reset() {
     score = 0;
     questionIndex = 0;
-    
+    savedScores = [];
     // clear local storage
+    localStorage.clear();
 };
 
 // page starts with just coding quiz challenge 'first-page', hiding all others
@@ -127,7 +128,7 @@ function beginQuiz() {
     beginButton.addEventListener('click', startQuestions);
 };
 
-
+var timeLeft = 90;
 
 // begins the test, showing only 'questions' class, hiding all others
 function startQuestions() {
@@ -140,7 +141,7 @@ function startQuestions() {
     // start over with 0 score and timer
     var score = 0;
     var questionIndex = 0;
-    var timeLeft = 10;
+    timeLeft = 90;
     var countdownBegin = setInterval(function() {
         if(timeLeft <=0) {
             clearInterval(countdownBegin);
@@ -151,15 +152,19 @@ function startQuestions() {
         timeLeft -= 1;
     }, 1000);
     // start questions, starts at 0 index
-    showQuestions();
+    showQuestions(questionIndex);
 };
-function showQuestions() {
+function showQuestions(questionIndex) {
     //  puts questions and answers on h1 and buttons
-    quizQuestion.innerHTML = qq.question;
-    buttonAnswerA.innerHTML = qq.answerA;
-    buttonAnswerB.innerHTML = qq.answerB;
-    buttonAnswerC.innerHTML = qq.answerC;
-    buttonAnswerD.innerHTML = qq.answerD;
+    if (questionIndex >= questions.length) {
+        testEnds();
+        return
+    }
+    quizQuestion.innerHTML = questions[questionIndex].question;
+    buttonAnswerA.innerHTML = questions[questionIndex].answerA;
+    buttonAnswerB.innerHTML = questions[questionIndex].answerB;
+    buttonAnswerC.innerHTML = questions[questionIndex].answerC;
+    buttonAnswerD.innerHTML = questions[questionIndex].answerD;
 
 
 };
@@ -168,7 +173,9 @@ buttonAnswerA.addEventListener('click', function(event) {checkAnswer(event)});
 buttonAnswerB.addEventListener('click', function(event) {checkAnswer(event)});
 buttonAnswerC.addEventListener('click', function(event) {checkAnswer(event)});
 buttonAnswerD.addEventListener('click', function(event) {checkAnswer(event)});
-
+submitScore.addEventListener('click', saveHighScore);
+returnButton.addEventListener('click', beginQuiz);
+clearButton.addEventListener('click', reset);
         // if button is clicked, check the answer
 
 
@@ -181,35 +188,36 @@ function checkAnswer(event) {
 console.log(event.currentTarget.id);
     var correct = questions[questionIndex].correctAnswer;
     var answer = event.currentTarget.id;
+    console.log(correct);
     
-    for (i = 0; i < qq.length; i++) {
 
         if (answer === correct) {
-        answerResponse.textContent = "That's Correct!"; // If correct, say correct, add points and console log score
+        alert("That's Correct!") // If correct, say correct, add points and console log score
         score++;
         console.log(score)
-        showQuestions();
-        } else if (answer != correct) {
-        answerResponse.textContent = "That's Incorrect!"; // If wrong, say wrong & deduct 10 seconds
-            secondsLeft -= 10
-            if (secondsLeft < 0) {
-                secondsLeft = 0;
+        questionIndex++;
+        showQuestions(questionIndex);
+
+        } else if (answer !== correct) {
+        alert("That's Incorrect!") // If wrong, say wrong & deduct 10 seconds
+            timeLeft -= 10;
+            if (timeLeft < 0) {
+                timeLeft = 0;
             };
-            showQuestions();
+            questionIndex++;
+            showQuestions(questionIndex);
         };
 
     };    
-    if (qq.length === questionIndex+1) {
-        testEnds(); // If it has gone through all questions, show final score
-    };
-
-
-};
+     // If it has gone through all questions, show final score
 
 
 
 
 
+
+
+var savedScores = [];
 
 // test ends, showing only 'last-page' class, hiding all others
 function testEnds() {
@@ -217,12 +225,22 @@ function testEnds() {
     questionsPage.style.display = "none";
     ending.style.display = "block";
     highScorePage.style.display = "none";
-
+    
     finalScore.textContent = score + " out of 10";
     
-    // save user input initials to local storage
+
+};
+
+
+function saveHighScore() {
+
     
-    submitScore.addEventListener('click', HighScores);
+    var initials = document.getElementById('initials').value;
+    savedScores.push({name: initials, score: score});
+    localStorage.setItem("savedScores", JSON.stringify(savedScores));
+    HighScores();
+
+
 };
 
 
@@ -233,10 +251,22 @@ function HighScores() {
     ending.style.display = "none";
     highScorePage.style.display = "block";
 
-    
+    var history = localStorage.getItem("savedScores");
+    if (!history) {
+        return false;
+    }
+    console.log("Past Scores Found!");
+    var scoreHistory = JSON.parse(history);
 
-    returnButton.addEventListener('click', beginQuiz);
-    clearButton.addEventListener('click', reset);
+    var historyLog = "";
+
+    for (var i = 0; i < scoreHistory.length; i++) {
+        historyLog += "<p>Name: " + scoreHistory[i].name + "   Score:" + scoreHistory[i].score + "</p>";
+    };
+    
+    pastScores.innerHTML = historyLog;
+
+
 };
 
 
