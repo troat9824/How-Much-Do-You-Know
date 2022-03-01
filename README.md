@@ -1,6 +1,6 @@
 # How Much Do You Know?
 
-![Alt text](./assets/images/code-quiz-screenshot.jpg)
+![Alt text](./assets/images/code-quiz-screenshot.jpg) 
 
 ## Purpose
 A quiz to test you on your beginners coding ability.
